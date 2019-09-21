@@ -2,8 +2,11 @@ const express = require('express');
 const loggingMorgan = require('morgan');
 const bodyParser = require('body-parser')
 const app = express();
+const mongoose = require('mongoose');
 
 const partyRoutes = require('./api/routes/party');
+
+mongoose.connect('mongodb+srv://' + process.env.MONGOUSERNAME + ':' + process.env.MONGOPASSWORD + '@cluster0-lfptu.mongodb.net/test?retryWrites=true&w=majority');
 
 app.use(loggingMorgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
