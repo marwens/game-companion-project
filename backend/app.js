@@ -1,10 +1,13 @@
 const express = require('express');
 const loggingMorgan = require('morgan');
+const bodyParser = require('body-parser')
 const app = express();
 
 const partyRoutes = require('./api/routes/party');
 
 app.use(loggingMorgan('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Routes for requests
 app.use('/party', partyRoutes);
