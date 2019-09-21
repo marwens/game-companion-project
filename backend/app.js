@@ -9,6 +9,19 @@ app.use(loggingMorgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//allow non origin requests and avoid CORS errors
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Reauested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === 'OPTIONS') {
+        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE");
+        return res.status(200).json({});
+    }
+});
+
 // Routes for requests
 app.use('/party', partyRoutes);
 
